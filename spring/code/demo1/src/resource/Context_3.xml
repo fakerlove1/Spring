@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 用来测试 Spring 依赖注入的 地方-->
+    <bean id="person_index" class="com.ak.Pojo.Person">
+        <constructor-arg index="0" value="1"></constructor-arg>
+        <constructor-arg index="1" value="joker-construct"></constructor-arg>
+        <constructor-arg index="2" value="99"></constructor-arg>
+    </bean>
+
+    <bean id="person_type" class="com.ak.Pojo.Person">
+        <constructor-arg type="int" value="1"></constructor-arg>
+        <constructor-arg type="java.lang.String" value="joker-type"></constructor-arg>
+        <constructor-arg type="java.lang.Double" value="99.0"></constructor-arg>
+    </bean>
+
+    <bean id="person_ref" class="com.ak.Pojo.Person">
+        <constructor-arg ref="person_index"></constructor-arg>
+    </bean>
+
+    <bean id="person" class="com.ak.Pojo.Person">
+        <property name="name" value="joker-person"/>
+        <property name="id" value="12"></property>
+        <property name="score" value="99"></property>
+    </bean>
+
+    <bean id="person_p" class="com.ak.Pojo.Person"
+          p:name="p-person" p:id="12" p:score="110">
+    </bean>
+
+
+    <bean id="Text" class="com.ak.Pojo.Text">
+        <property name="size">
+            <bean id="Size" class="com.ak.Pojo.Text.Size">
+                <property name="name" value="Size_Name"></property>
+            </bean>
+        </property>
+        <property name="length" value="10000">
+
+        </property>
+        <property name="text" value="Text"></property>
+    </bean>
+
+    <!-- Definition for javaCollection -->
+    <bean id="java_Collection" class="com.ak.Pojo.D_4">
+
+        <!-- results in a setAddressList(java.util.List) call -->
+        <property name="list">
+            <list>
+                <value>INDIA</value>
+                <value>Pakistan</value>
+                <value>USA</value>
+                <value>USA</value>
+            </list>
+        </property>
+
+        <!-- results in a setAddressSet(java.util.Set) call -->
+        <property name="set">
+            <set>
+                <value>INDIA</value>
+                <value>Pakistan</value>
+                <value>USA</value>
+                <value>USA</value>
+            </set>
+        </property>
+
+        <!-- results in a setAddressMap(java.util.Map) call -->
+        <property name="map">
+            <map>
+                <entry key="1" value="INDIA"/>
+                <entry key="2" value="Pakistan"/>
+                <entry key="3" value="USA"/>
+                <entry key="4" value="USA"/>
+            </map>
+        </property>
+
+        <!-- results in a setAddressProp(java.util.Properties) call -->
+        <property name="addressProp">
+            <props>
+                <prop key="one">INDIA</prop>
+                <prop key="two">Pakistan</prop>
+                <prop key="three">USA</prop>
+                <prop key="four">USA</prop>
+            </props>
+        </property>
+
+    </bean>
+</beans>

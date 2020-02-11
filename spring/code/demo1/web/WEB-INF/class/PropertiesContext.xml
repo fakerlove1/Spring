@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <!-- A simple bean definition -->
+    <bean id="configuration" class="com.ak.Pojo.HelloWorld"  lazy-init="true" >
+        <property name="message" value="这个是xml 中初始化 的数据"></property>
+        <property name="code" value="200"></property>
+    </bean>
+
+<!--   这个是 每次调用 都次调用 getbean ,都会使用 new  -->
+    <bean id="coll" class="com.ak.Pojo.HelloWorld" scope="prototype">
+        <property name="message" value="这个是xml 中初始化 的数据"></property>
+        <property name="code" value="400"></property>
+    </bean>
+
+<!--   这个是 接口 进行的初始化-->
+    <bean id="helloWorld" class="com.ak.Pojo.HelloWorld" init-method="init" destroy-method="destory">
+        <property name="message" value="这个是xml 中初始化 的数据"></property>
+        <property name="code" value="600"></property>
+    </bean>
+
+      <!-- 这个是 属性的进行的初始化 -->
+    <bean id="helloWorld2" class="com.ak.Pojo.HelloWorld2" >
+        <property name="message" value="这个是xml 中初始化 的数据"></property>
+        <property name="code" value="700"></property>
+    </bean>
+
+
+</beans>

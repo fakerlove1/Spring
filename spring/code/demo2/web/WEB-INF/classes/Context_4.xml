@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <bean id="Text_Auto_ByName" class="com.ak.Pojo.Text" autowire="byName">
+        <property name="length" value="10000"></property>
+        <property name="text" value="Text"></property>
+    </bean>
+
+    <bean id="size" class="com.ak.Pojo.Text.Size" >
+        <property name="name" value="自动装配的Size2"></property>
+    </bean>
+<!--        使用了 自动装配的ByName  错误示范 ,id 的名字写错了 ，Size 写成大写，很容易失误 -->
+<!--        <bean id="Size" class="com.ak.Pojo.Text.Size">-->
+<!--            <property name="name" value="自动装配的Size1"></property>-->
+<!--        </bean>-->
+
+    <!-- 使用的条件  是根据类型的自动 匹配 ，所以每一种类 只能够有一种  -->
+    <bean id="Text_Auto_ByType" class="com.ak.Pojo.Text" autowire="byType">
+        <property name="text" value="自动装配测试ByType"></property>
+        <property name="length" value="100"></property>
+    </bean>
+
+</beans>

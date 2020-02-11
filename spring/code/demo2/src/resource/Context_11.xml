@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+        ">
+    <!--    扫描 注解-->
+    <context:component-scan base-package="com.ak"></context:component-scan>
+
+    <!--    添加properties 属性-->
+    <context:property-placeholder location="jdbc.properties"></context:property-placeholder>
+
+    <!--    数据源-->
+    <bean id="dataSource"  class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName"  value="${jdbc_driverClass}" ></property>
+        <property name="url"  value="${jdbc_url}" ></property>
+        <property name="username"  value="${jdbc_userName}" ></property>
+        <property name="password"  value="${jdbc_userPassword}" ></property>
+    </bean>
+
+    <!--    设置 模板 ，相当于jdbcUtils-->
+    <bean id="jdbcTemplate"  class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <bean id="comment" class="com.ak.Pojo.Comment">
+        <property name="information" value="joker"></property>
+    </bean>
+
+    <!-- 	支持事务注解
+            transaction-manager="transactionManager"  默认名字为transactionManager，
+                                如果配置事务管理器的名字不叫transactionManager，则需要指定transaction-manager
+    -->
+    <!-- 配置事务管理器,用来管理 DataSource -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!--定义事务增强点-->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <!--            <tx:method name="save*" propagation="REQUIRED"/>-->
+            <tx:method name="remove" propagation="REQUIRED"></tx:method>
+        </tx:attributes>
+    </tx:advice>
+
+    <!--    切片信息，能够切到 AccountServiceImpl 中的 remove 类-->
+    <aop:config>
+        <aop:pointcut id="txPointcut" expression="execution(* com.ak.Service..*.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
+    </aop:config>
+
+</beans>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <bean id="Text_Auto_ByName" class="com.ak.Pojo.Text" autowire="byName">
+        <property name="text" value="自动装配测试"></property>
+        <property name="length" value="100"></property>
+    </bean>
+
+    <bean id="size" class="com.ak.Pojo.Text.Size">
+        <property name="name" value="自动装配的Size"></property>
+    </bean>
+
+<!--    使用了 自动装配的ByName  错误示范 ,id 的名字写错了 ，Size 写成大写，很容易失误 -->
+<!--    <bean id="Size" class="com.ak.Pojo.Text.Size">-->
+<!--        <property name="name" value="自动装配的Size"></property>-->
+<!--    </bean>-->
+
+
+
+</beans>

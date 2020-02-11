@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--
+	id: bean的唯一标识
+	class: 指定全类名，以反射的方式创建对象 Class.forName("com.ak.Pojo.Person").newInstance();
+ -->
+    <!--
+    property 表示的是 自动注入的属性 ，一个property 对应一个 属性
+    name 表示字段名称 value 表示 字段值
+    property 下面没有其他字段内容
+    -->
+
+
+    <bean id="person" class="com.ak.Pojo.Person">
+        <property name="id" value="24"></property>
+        <property name="score" value="100"></property>
+        <property name="name" value="joker"></property>
+    </bean>
+
+    <!-- A simple bean definition -->
+    <bean id="configuration" class="com.ak.Pojo.HelloWorld_Singleton" lazy-init="true">
+        <property name="message" value="这个是xml 中初始化 的数据"></property>
+        <property name="code" value="200"></property>
+    </bean>
+
+    <!--   这个是 每次调用 都次调用 getbean ,都会使用 new  -->
+    <bean id="HelloWorld_Prototype" class="com.ak.Pojo.HelloWorld_Prototype" scope="prototype">
+        <property name="message" value="这个是xml 中初始化 的数据"></property>
+        <property name="code" value="400"></property>
+    </bean>
+
+    <!--   这个是 接口 进行的初始化-->
+    <bean id="HelloWorld_Singleton" class="com.ak.Pojo.HelloWorld_Singleton" init-method="init" destroy-method="destory">
+        <property name="message" value="这个是xml 中初始化 的数据"></property>
+        <property name="code" value="600"></property>
+    </bean>
+
+    <!-- 这个是 属性的进行的初始化 -->
+    <bean id="col" class="com.ak.Pojo.HelloWorld_Prototype">
+        <property name="message" value="这个是xml 中初始化 的数据"></property>
+        <property name="code" value="700"></property>
+    </bean>
+
+
+</beans>

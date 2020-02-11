@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+ "
+>
+
+    <!--     用来测试 Goods_Required ，实体类上有多少个 Required ,就得有多少个 属性，否则报错-->
+    <!--    <bean id="Goods_Required" class="com.ak.Pojo.Goods_Required">-->
+    <!--        <property name="price" value="10"/>-->
+    <!--        <property name="name" value="Goods_Required 的商品"/>-->
+    <!--        <property name="id" value="1"/>-->
+    <!--    </bean>-->
+
+    <bean id="Good" class="com.ak.Pojo.Goods">
+        <property name="price" value="100000"/>
+        <property name="name" value="Goods  的商品"/>
+        <property name="id" value="1"/>
+    </bean>
+
+    <bean id="comment" class="com.ak.Pojo.Comment">
+        <property name="id" value="100">
+
+        </property>
+        <property name="information" value="商品评论信息-这个商品很好用"></property>
+    </bean>
+
+    <!--    开始自动注解方式 -->
+    <context:annotation-config></context:annotation-config>
+
+    <bean id="mysqldata" class="com.ak.service.impl.MysqlDataSource">
+        <!--        <qualifier value="mysqlDataSource"/>-->
+        <!--    qualifier 加上去 @qualifier 就根据 qualifier-> value 值寻找    -->
+        <!--         不加，就根据 bean 的 id 来寻找-->
+    </bean>
+    <bean id="oracledata" class="com.ak.service.impl.OracleDataSource">
+
+    </bean>
+    <bean id="testBean" class="com.ak.Bean.MyDataSourceTest"/>
+</beans>

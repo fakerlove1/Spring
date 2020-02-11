@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+
+<!--    使用aop 的话 ，约束条件需要添加 -->
+
+    <aop:config >
+        <aop:pointcut expression="execution(* com.ak.service..*.*(..))" id="apc"></aop:pointcut>
+
+        <aop:aspect ref="loggingAspect">
+            <aop:before method="beforeMethod"   pointcut-ref="apc"/>
+            <aop:after method="afterMethod"  pointcut="execution(* com.ak.service..*.*(..))"/>
+            <aop:around method="roundMethod"  pointcut-ref="apc"/>
+            <aop:after-throwing method="throwMethod"  pointcut-ref="apc"/>
+            <aop:after-returning method="returnMethod"  pointcut-ref="apc"/>
+        </aop:aspect>
+    </aop:config>
+
+    <bean id="loggingAspect"  class="com.ak.Aop.LoggingAspectXml"></bean>
+<!--    这个自动扫描 切片信息 -->
+<!--    <aop:aspectj-autoproxy></aop:aspectj-autoproxy>-->
+
+    <!--    扫描 service 的 注解 Service-->
+    <context:component-scan base-package="com.ak.service"></context:component-scan>
+
+</beans>

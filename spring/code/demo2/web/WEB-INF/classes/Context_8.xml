@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+ "
+>
+
+    <context:property-placeholder location="jdbc.properties"></context:property-placeholder>
+
+    <bean id="Ex" class="com.ak.Pojo.ExpressionTest">
+        <!--         字面量复制-->
+        <property name="jdbc_url" value="${jdbc_url}"></property>
+
+        <!--     运算符   -->
+        <property name="score" value="#{99.0/10.0}"></property>
+        <!--    字符串连接-->
+
+        <property name="code" value="#{'张三'+'---'+'李四'}"></property>
+        <!--        比较运算符-->
+        <property name="kk" value="#{10 ge 0}"/>
+        <!--        &lt; 或者lt 是转义符 在xml 中使用时 < > <= >= 是行不通的 -->
+        <!--       逻辑运算符 -->
+        <property name="flag" value="#{true and true }"></property>
+        <!--        条件运算符-->
+        <property name="telephone" value="#{1>0?'110':'120'}"></property>
+        <!--        <property name="telephone" value="${1>0?'110':'120'}"></property>-->
+
+<!--        if(1>0){-->
+<!--        110-->
+<!--        }else{-->
+<!--        120-->
+<!--        }-->
+
+        <!--        正则表达式-->
+        <property name="price" value="#{2 matches '^\d$' ?  2.0 : 0.0}"></property>
+
+    </bean>
+
+</beans>

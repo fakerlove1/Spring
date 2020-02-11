@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <!--    开始自动注解方式 -->
+    <context:annotation-config></context:annotation-config>
+
+    <bean id="mysqldata" class="com.ak.Dao.Impl.MysqlDataSource">
+<!--                <qualifier value="mysqlDataSource1"/>-->
+        <!--    qualifier 加上去 @qualifier 就根据 qualifier-> value 值寻找    -->
+        <!--         不加，就根据 bean 的 id 来寻找-->
+    </bean>
+
+    <bean id="oracledata" class="com.ak.Dao.Impl.OracleDataSource">
+
+    </bean>
+
+    <bean id="testBean" class="com.ak.Service.MyDataSourceTest"/>
+
+</beans>
